@@ -117,7 +117,11 @@ def info(package: str, plugin: str, func: Optional[str] = None) -> PluginInfo:
     _import(package, plugin)
 
     try:
-        plugin_info = _PLUGINS[package][plugin]
+#        print(f'***************  {package}  {plugin}')
+        pack, _ ,plugin = plugin.rpartition('.')
+        if pack != '': package += '.' + pack
+#        print(f'******  {package}  {plugin}')
+       plugin_info = _PLUGINS[package][plugin]
     except KeyError:
         raise _exceptions.UnknownPluginError(
             f"Could not find any plug-in named {plugin!r} inside {package!r}. "
